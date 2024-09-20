@@ -20,10 +20,24 @@
 </script>
 
 <template>
-    <header>
-        <input type="text" v-model="store.searchQuery" @keyup.enter="search" placeholder="Cerca un film o una serie TV">
-        <button @click="search">Cerca</button>
+    <header class="d-flex justify-content-between align-items-center p-3 bg-dark text-white">
+
+        <div class="logo">
+            <h1>BOOLFLIX</h1>
+        </div>
+
+        <div class="search-bar d-flex">
+            <input type="text" v-model="store.searchQuery" @keyup.enter="search" class="form-control me-2"
+                placeholder="Cerca un film o una serie TV">
+            <button @click="search" class="btn btn-danger">Cerca</button>
+        </div>
     </header>
 </template>
 
-<style scoped></style>
+<style scoped>
+    .logo h1 {
+        font-size: 24px;
+        color: red;
+        margin: 0;
+    }
+</style>

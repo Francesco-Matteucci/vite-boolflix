@@ -11,10 +11,20 @@
 </script>
 
 <template>
-  <div id="app">
+  <div id="app" class="d-flex flex-column min-vh-100">
     <AppHeader />
-    <SearchResults />
+    <main class="content flex-grow-1 overflow-auto">
+      <SearchResults />
+    </main>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+  #app {
+    background-color: #141414;
+  }
+
+  .content {
+    padding: 40px;
+  }
+</style>
