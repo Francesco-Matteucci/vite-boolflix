@@ -31,7 +31,7 @@
     <div class="search-bar d-flex align-items-center">
 
         <div v-if="!showSearch" class="me-3" @click="toggleSearch" style="cursor: pointer;">
-            <i class="bi bi-search"></i>
+            <i class="bi bi-search text-white"></i>
         </div>
 
         <div v-if="showSearch" class="search-form d-flex align-items-center me-3">

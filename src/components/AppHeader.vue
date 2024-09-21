@@ -13,9 +13,9 @@
 </script>
 
 <template>
-    <header class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <header class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <div class="logo">
+            <div class="logo me-4">
                 <h1>BOOLFLIX</h1>
             </div>
 
@@ -29,7 +29,19 @@
     </header>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        opacity: 0.8;
+        background-color: #000;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
     .logo h1 {
         font-size: 24px;
         color: red;
