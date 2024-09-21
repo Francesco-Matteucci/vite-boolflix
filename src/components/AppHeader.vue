@@ -1,35 +1,30 @@
-    <script>
-        import { store } from '../store.js';
-        import { searchMovies, searchTVSeries } from '../api.js';
+<script>
+    import SearchBar from './SearchBar.vue';
+    import UserProfile from './UserProfile.vue';
+    import NavLinks from './NavLinks.vue';
 
-        export default {
-            setup() {
-                return {
-                    store
-                };
-            },
-            methods: {
-                search() {
-                    if (store.searchQuery) {
-                        searchMovies(store.searchQuery);
-                        searchTVSeries(store.searchQuery);
-                    }
-                }
-            }
-        };
+    export default {
+        components: {
+            SearchBar,
+            UserProfile,
+            NavLinks
+        }
+    };
 </script>
 
 <template>
-    <header class="d-flex justify-content-between align-items-center p-3 bg-dark text-white">
+    <header class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="logo">
+                <h1>BOOLFLIX</h1>
+            </div>
 
-        <div class="logo">
-            <h1>BOOLFLIX</h1>
-        </div>
+            <NavLinks />
 
-        <div class="search-bar d-flex">
-            <input type="text" v-model="store.searchQuery" @keyup.enter="search" class="form-control me-2"
-                placeholder="Cerca un film o una serie TV">
-            <button @click="search" class="btn btn-danger">Cerca</button>
+            <div class="d-flex align-items-center">
+                <SearchBar />
+                <UserProfile />
+            </div>
         </div>
     </header>
 </template>
@@ -39,5 +34,14 @@
         font-size: 24px;
         color: red;
         margin: 0;
+    }
+
+    .bi-search {
+        font-size: 1.5rem;
+        color: white;
+    }
+
+    .cursor-pointer {
+        cursor: pointer;
     }
 </style>

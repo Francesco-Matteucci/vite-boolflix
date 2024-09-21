@@ -36,6 +36,9 @@
         computed: {
             moviePoster() {
                 return this.movie.poster_path ? `${this.imageBaseURL}${this.movie.poster_path}` : fallbackImage;
+            },
+            movieType() {
+                return this.movie.title ? 'Film' : 'Serie TV';
             }
         }
     };
@@ -43,15 +46,15 @@
 
 <template>
     <div class="movie-card">
-        <!-- Fronte della card: solo immagine -->
+
         <div class="movie-card-front d-flex justify-content-center align-items-center">
-            <img :src="moviePoster" alt="Copertina" class="movie-poster img-fluiid" />
+            <img :src="moviePoster" alt="Copertina" class="movie-poster img-fluid" />
         </div>
 
-        <!-- Retro della card: informazioni sul film/serie -->
-        <div class="movie-card-back d-flex flex-column justify-content-center align-items-center  text-center">
-            <h4>{{ movie.title || movie.name }}</h4>
-            <p>{{ movie.original_title || movie.original_name }}</p>
+        <div class="movie-card-back d-flex flex-column justify-content-center align-items-center text-center">
+            <h6>{{ movie.title || movie.name }}</h6>
+            <small class="mb-2">{{ movie.original_title || movie.original_name }}</small>
+            <p>{{ movieType }}</p>
             <p>
                 <strong>Lingua: </strong>
                 <img :src="getFlag(movie.original_language)" alt="flag" />
@@ -64,8 +67,7 @@
     </div>
 </template>
 
-<style lang="scss" scoped>
-
+<style scoped>
     .movie-card {
         position: relative;
         width: 100%;
@@ -82,21 +84,17 @@
         backface-visibility: hidden;
         transition: transform 0.9s ease;
         border-radius: 8px;
-
     }
-
 
     .movie-card-back {
         background-color: #333;
         color: white;
         padding: 10px;
         transform: rotateY(180deg);
-
     }
 
     .movie-card:hover .movie-card-front {
         transform: rotateY(180deg);
-
     }
 
     .movie-card:hover .movie-card-back {
