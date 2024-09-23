@@ -1,6 +1,6 @@
 <script>
     import { store } from '../../store.js';
-    import { searchMovies, searchTVSeries } from '../../api.js';
+    import { searchAll } from '../../api.js';
 
     export default {
         data() {
@@ -19,8 +19,8 @@
             search() {
                 if (store.searchQuery) {
                     console.log("Sto cercando:", store.searchQuery);
-                    searchMovies(store.searchQuery);
-                    searchTVSeries(store.searchQuery);
+                    searchAll(store.searchQuery);
+
                 }
             }
         }
