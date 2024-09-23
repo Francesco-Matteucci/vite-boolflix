@@ -1,5 +1,5 @@
 <script>
-    import fallbackImage from '../assets/img/copertina-non-disponibile.jpg';
+    import fallbackImage from '../../assets/img/copertina-non-disponibile.jpg';
 
     export default {
         props: {

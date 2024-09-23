@@ -9,7 +9,7 @@
             <span class="badge bg-danger">9</span>
         </div>
         <div>
-            <img src="../assets/img/avatar_io.jpg" alt="User Profile" class="rounded-circle" width="40">
+            <img src="../../assets/img/avatar_io.jpg" alt="User Profile" class="rounded-circle" width="40">
         </div>
     </div>
 </template>

@@ -1,6 +1,6 @@
 <script>
-    import { store } from '../store.js';
-    import { searchMovies, searchTVSeries } from '../api.js';
+    import { store } from '../../store.js';
+    import { searchMovies, searchTVSeries } from '../../api.js';
 
     export default {
         data() {

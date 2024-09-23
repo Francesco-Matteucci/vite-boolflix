@@ -1,6 +1,6 @@
 <script>
-  import AppHeader from './components/AppHeader.vue';
-  import SearchResults from './components/SearchResults.vue';
+  import AppHeader from './components/header/AppHeader.vue';
+  import SearchResults from './components/contents/SearchResults.vue';
 
   export default {
     components: {
