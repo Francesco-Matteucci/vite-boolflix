@@ -1,10 +1,16 @@
 <script>
     import CarouselComponent from '../shared/CarouselComponent.vue';
     import { searchTopMovies, getActionMovies, getComedyMovies, getAnimationMovies } from '../../api.js';
+    import { store } from '../../store.js';
 
     export default {
         components: {
             CarouselComponent
+        },
+        setup() {
+            return {
+                store
+            };
         },
         data() {
             return {
@@ -55,13 +61,14 @@
 
 <template>
     <div class="media-section">
-        <CarouselComponent :movies="topMovies" title="Film più visti" />
+        <CarouselComponent v-if="store.movies.length" :movies="store.movies" title="Risultati della ricerca" />
 
-        <CarouselComponent :movies="actionMovies" title="Film d'Azione" />
-
-        <CarouselComponent :movies="comedyMovies" title="Commedie" />
-
-        <CarouselComponent :movies="animationMovies" title="Film di Animazione" />
+        <div v-else>
+            <CarouselComponent :movies="topMovies" title="I film più visti" />
+            <CarouselComponent :movies="actionMovies" title="Tutta l'Azione che cerchi" />
+            <CarouselComponent :movies="comedyMovies" title="Tra una Commedia e l'altra" />
+            <CarouselComponent :movies="animationMovies" title="Anime, e film di Animazione" />
+        </div>
     </div>
 </template>
 
