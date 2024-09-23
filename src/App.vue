@@ -1,11 +1,11 @@
 <script>
   import AppHeader from './components/header/AppHeader.vue';
-  import SearchResults from './components/contents/SearchResults.vue';
+  import MediaSection from './components/contents/MediaSection.vue';
 
   export default {
     components: {
       AppHeader,
-      SearchResults
+      MediaSection
     }
   };
 </script>
@@ -14,7 +14,7 @@
   <div id="app" class="d-flex flex-column min-vh-100">
     <AppHeader />
     <main class="content flex-grow-1 overflow-auto">
-      <SearchResults />
+      <MediaSection />
     </main>
   </div>
 </template>

@@ -14,4 +14,14 @@ export function searchAll(query) {
       store.movies = [...results];
     })
     .catch(error => console.error('Errore nella chiamata API', error));
+};
+
+// Creo una funzione per cercare film più visti
+export function searchTopMovies() {
+  const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`;
+
+  return axios
+      .get(url)
+      .then(response => response.data.results)
+      .catch(error => console.error('Errore nella chiamata API per i film più visti:', error));
 }
