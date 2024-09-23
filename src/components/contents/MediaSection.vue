@@ -1,45 +1,52 @@
 <script>
-    import CardComponent from './CardComponent.vue';
-    import { store } from '../../store.js';
-    import { searchTopMovies } from '../../api.js';
+    import CarouselComponent from '../shared/CarouselComponent.vue';
+    import { searchTopMovies, getActionMovies, getComedyMovies, getAnimationMovies } from '../../api.js';
 
     export default {
         components: {
-            CardComponent
-        },
-        setup() {
-            return {
-                store
-            };
-        },
-        computed: {
-            // Creo una computed che determina se mostrare i risultati della ricerca o i contenuti predefiniti
-            mediaList() {
-                return store.movies.length ? store.movies : this.defaultMediaList;
-            },
-            // Computed che determina il titolo da mostrare
-            sectionTitle() {
-                return store.movies.length
-                    ? 'Film filtrati secondo la tua ricerca'
-                    : 'Film più visti';
-            }
+            CarouselComponent
         },
         data() {
             return {
-                // Lista di default da mostrare all'apertura dell'app
-                defaultMediaList: []
+                topMovies: [],
+                actionMovies: [],
+                comedyMovies: [],
+                animationMovies: []
             };
         },
         created() {
-            // Popolo i film più visti all'apertura dell'app
-            this.fetchDefaultMedia();
+            this.fetchTopMovies();
+            this.fetchActionMovies();
+            this.fetchComedyMovies();
+            this.fetchAnimationMovies();
         },
         methods: {
-            fetchDefaultMedia() {
+            fetchTopMovies() {
                 searchTopMovies().then(movies => {
-                    this.defaultMediaList = movies;
+                    this.topMovies = movies;
                 }).catch(error => {
-                    console.error('Errore durante il caricamento dei film predefiniti:', error);
+                    console.error('Errore nel caricamento dei film più visti:', error);
+                });
+            },
+            fetchActionMovies() {
+                getActionMovies().then(movies => {
+                    this.actionMovies = movies;
+                }).catch(error => {
+                    console.error('Errore nel caricamento dei film d\'azione:', error);
+                });
+            },
+            fetchComedyMovies() {
+                getComedyMovies().then(movies => {
+                    this.comedyMovies = movies;
+                }).catch(error => {
+                    console.error('Errore nel caricamento delle commedie:', error);
+                });
+            },
+            fetchAnimationMovies() {
+                getAnimationMovies().then(movies => {
+                    this.animationMovies = movies;
+                }).catch(error => {
+                    console.error('Errore nel caricamento dei film di animazione:', error);
                 });
             }
         }
@@ -48,20 +55,13 @@
 
 <template>
     <div class="media-section">
+        <CarouselComponent :movies="topMovies" title="Film più visti" />
 
-        <div class="row justify-content-start">
-            <div class="col-12">
-                <h2 class="section-title">{{ sectionTitle }}</h2>
-            </div>
-        </div>
+        <CarouselComponent :movies="actionMovies" title="Film d'Azione" />
 
-        <div class="container">
-            <div class="row">
-                <div v-for="media in mediaList" :key="media.id" class="col-6 col-md-4 col-lg-2 mb-4">
-                    <CardComponent :movie="media" />
-                </div>
-            </div>
-        </div>
+        <CarouselComponent :movies="comedyMovies" title="Commedie" />
+
+        <CarouselComponent :movies="animationMovies" title="Film di Animazione" />
     </div>
 </template>
 
@@ -70,13 +70,10 @@
         padding: 40px;
     }
 
-
     .section-title {
         font-size: 24px;
         font-weight: bold;
         color: #FFFFFF;
         margin-bottom: 20px;
-
-
     }
 </style>
