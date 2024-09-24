@@ -1,6 +1,6 @@
 <script>
     import CarouselComponent from '../shared/CarouselComponent.vue';
-    import { searchTopMovies, getActionMovies, getComedyMovies, getAnimationMovies } from '../../api.js';
+    import { searchTopMovies, getActionMovies, getComedyMovies, getAnimationMovies, getMovieCredits, getMovieDetails } from '../../api.js';
     import { store } from '../../store.js';
 
     export default {
@@ -28,31 +28,62 @@
         },
         methods: {
             fetchTopMovies() {
-                searchTopMovies().then(movies => {
-                    this.topMovies = movies;
-                }).catch(error => {
-                    console.error('Errore nel caricamento dei film più visti:', error);
-                });
+                searchTopMovies()
+                    .then(movies => {
+                        this.topMovies = movies;
+                        this.fetchAdditionalMovieData(this.topMovies, true);
+                    })
+                    .catch(error => {
+                        console.error('Errore nel caricamento dei film più visti:', error);
+                    });
             },
             fetchActionMovies() {
-                getActionMovies().then(movies => {
-                    this.actionMovies = movies;
-                }).catch(error => {
-                    console.error('Errore nel caricamento dei film d\'azione:', error);
-                });
+                getActionMovies()
+                    .then(movies => {
+                        this.actionMovies = movies;
+                        this.fetchAdditionalMovieData(this.actionMovies, true);
+                    })
+                    .catch(error => {
+                        console.error('Errore nel caricamento dei film d\'azione:', error);
+                    });
             },
             fetchComedyMovies() {
-                getComedyMovies().then(movies => {
-                    this.comedyMovies = movies;
-                }).catch(error => {
-                    console.error('Errore nel caricamento delle commedie:', error);
-                });
+                getComedyMovies()
+                    .then(movies => {
+                        this.comedyMovies = movies;
+                        this.fetchAdditionalMovieData(this.comedyMovies, true);
+                    })
+                    .catch(error => {
+                        console.error('Errore nel caricamento delle commedie:', error);
+                    });
             },
             fetchAnimationMovies() {
-                getAnimationMovies().then(movies => {
-                    this.animationMovies = movies;
-                }).catch(error => {
-                    console.error('Errore nel caricamento dei film di animazione:', error);
+                getAnimationMovies()
+                    .then(movies => {
+                        this.animationMovies = movies;
+                        this.fetchAdditionalMovieData(this.animationMovies, true);
+                    })
+                    .catch(error => {
+                        console.error('Errore nel caricamento dei film di animazione:', error);
+                    });
+            },
+            fetchAdditionalMovieData(movies, isMovie = true) {
+                movies.forEach(movie => {
+                    getMovieDetails(movie.id, isMovie)
+                        .then(details => {
+                            movie.genres = details.genres.map(genre => genre.name).join(', ');
+                        })
+                        .catch(error => {
+                            console.error('Errore nel recupero dei dettagli del film:', error);
+                        });
+
+                    getMovieCredits(movie.id, isMovie)
+                        .then(cast => {
+                            movie.cast = cast.slice(0, 5).map(actor => `${actor.name} ${actor.surname}`);
+                        })
+                        .catch(error => {
+                            console.error('Errore nel recupero del cast:', error);
+                        });
                 });
             }
         }

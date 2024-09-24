@@ -51,8 +51,7 @@
             <div class="carousel-container" ref="carouselContainer">
                 <div class="carousel-items">
                     <div v-for="movie in movies" :key="movie.id" class="custom-carousel-item">
-                        <!-- Utilizziamo CardComponent per gestire il rendering -->
-                        <CardComponent :movie="movie" />
+                        <CardComponent :movie="movie" :cast="movie.cast" :genres="movie.genres" />
                     </div>
                 </div>
             </div>
@@ -70,7 +69,7 @@
 
     .carousel-title {
         color: white;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         margin-bottom: 1rem;
     }
 
@@ -90,8 +89,8 @@
     }
 
     .custom-carousel-item {
-        min-width: 120px;
-        min-height: 180px;
+        min-width: 240px;
+        min-height: 300px;
     }
 
     button.prev,
@@ -104,7 +103,7 @@
         height: 100%;
         cursor: pointer;
         color: white;
-        font-size: 1.5rem;
+        font-size: 2rem;
         opacity: 0;
     }
 
