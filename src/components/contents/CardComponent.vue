@@ -28,6 +28,21 @@
                 return this.movie.title ? 'Film' : 'Serie TV';
             }
         },
+        data() {
+            return {
+                flagUrl: null
+            };
+        },
+        mounted() {
+            this.getFlag(this.movie.original_language)
+                .then(url => {
+                    this.flagUrl = url;
+                })
+                .catch(error => {
+                    console.error('Errore nel recupero della bandiera:', error);
+                    this.flagUrl = 'https://flagcdn.com/w40/un.png';
+                });
+        },
         methods: {
             getStars(vote) {
                 return Math.round(vote / 2);
@@ -41,7 +56,18 @@
                     ko: 'kr'
                 };
                 const countryCode = specialFlags[languageCode] || languageCode;
-                return `https://flagcdn.com/w40/${countryCode}.png`;
+
+                const img = new Image();
+                img.src = `https://flagcdn.com/w40/${countryCode}.png`;
+
+                return new Promise((resolve, reject) => {
+                    img.onload = () => {
+                        resolve(`https://flagcdn.com/w40/${countryCode}.png`);
+                    };
+                    img.onerror = () => {
+                        resolve('https://flagcdn.com/w40/un.png');
+                    };
+                });
             }
         }
     };
@@ -62,10 +88,12 @@
                 <i v-for="n in 5" :class="n <= getStars(movie.vote_average) ? 'bi bi-star-fill' : 'bi bi-star'"
                     :key="n"></i>
             </div>
-            <p>Lingua: <img :src="getFlag(movie.original_language)" alt="flag" />
+            <p>Lingua:
+                <img v-if="flagUrl" :src="flagUrl" alt="flag" />
+                <span v-else>Caricamento...</span>
             </p>
-            <p v-if="cast && cast.length">Cast: {{ cast.join(', ') }}</p>
-            <p v-if="genres">Generi: {{ genres }}</p>
+            <p v-if="cast && cast.length"><strong>Cast: </strong>{{ cast.join(', ') }}</p>
+            <p v-if="genres"><strong>Generi: </strong>{{ genres }}</p>
         </div>
     </div>
 </template>
@@ -79,7 +107,6 @@
         overflow: hidden;
         border-radius: 8px;
     }
-
 
     .movie-card-image {
         width: 100%;
