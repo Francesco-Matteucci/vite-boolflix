@@ -26,6 +26,13 @@
             this.fetchComedyMovies();
             this.fetchAnimationMovies();
         },
+        watch: {
+            'store.movies': function (newMovies) {
+                if (newMovies.length > 0) {
+                    this.fetchAdditionalMovieData(newMovies);
+                }
+            }
+        },
         methods: {
             fetchTopMovies() {
                 searchTopMovies()
