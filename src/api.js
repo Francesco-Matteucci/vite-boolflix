@@ -3,7 +3,7 @@ import { store } from './store.js';
 
 const apiKey = 'e2cdb0f611c8241030a5720ad2aaebdc';
 
-// Chiamata per ottenere film, serie TV e attori con una singola chiamata
+// Chiamata per ottenere film, serie TV con una singola chiamata
 export function searchAll(query) {
   const url = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${query}`;
 
