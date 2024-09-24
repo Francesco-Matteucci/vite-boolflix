@@ -60,7 +60,7 @@
                 const img = new Image();
                 img.src = `https://flagcdn.com/w40/${countryCode}.png`;
 
-                return new Promise((resolve, reject) => {
+                return new Promise((resolve) => {
                     img.onload = () => {
                         resolve(`https://flagcdn.com/w40/${countryCode}.png`);
                     };
